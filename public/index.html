@@ -11,28 +11,12 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="favicon.ico" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <link rel="manifest" href="manifest.json" />
+    <link rel="splash-icon" href="splash-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <title>Create Web App</title>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script defer>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('service-worker.js').then(function(registration) {
-          // Registration was successful
-          console.log(registration.scope);
-          console.log('Registered!')
-          }, function(err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err)
-          }).catch(function(err) {
-          console.log(err)
-          })
-        })
-    } else {
-      console.log('service worker is not supported');
-    }
-    </script>
     <script defer src="index.js"></script>
+    <script defer src="service-worker.js"></script>
   </head>
   <body>
     <div id="app"></div>

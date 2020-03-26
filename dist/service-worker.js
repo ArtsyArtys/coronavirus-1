@@ -118,30 +118,34 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"service-worker.js":[function(require,module,exports) {
-self.addEventListener('install', function () {
-  console.log('Install!');
+// if ('serviceWorker' in navigator) {
+//   console.log('service worker in navigator', navigator.serviceWorker);
+//   window.addEventListener('load', function() {
+//     navigator.serviceWorker.register('./service-worker.js', { scope: './'}).then(function(registration) {
+//       // Registration was successful
+//       console.log(registration.scope);
+//       console.log('Registered!')
+//       }, function(err) {
+//         // registration failed :(
+//         console.log('ServiceWorker registration failed: ', err)
+//       }).catch(function(err) {
+//       console.log(err)
+//       })
+//     })
+// } else {
+//   console.log('service worker is not supported');
+// }
+self.addEventListener('install', function (event) {
+  console.log('Install!', event);
+  event.waitUntil(caches.open('static-files').then(function (cache) {
+    return cache.addAll(['./apple-touch-icon.png', './favicon.ico', './splash-icon.png', './style.css']);
+  }));
 });
 self.addEventListener("activate", function (event) {
   console.log('Activate!');
 });
 self.addEventListener('fetch', function (event) {
-  console.log('Fetch!', event.request);
-});
-navigator.serviceWorker.ready.then(function (registration) {
-  if (!registration.pushManager) {
-    alert('No push notifications support.');
-    return false;
-  } //To subscribe `push notification` from push manager
-
-
-  registration.pushManager.subscribe({
-    userVisibleOnly: true //Always show notification when received
-
-  }).then(function (subscription) {
-    console.log('Subscribed.');
-  }).catch(function (error) {
-    console.log('Subscription error: ', error);
-  });
+  console.log('Fetch!', event.request); // console.log(navigator.serviceWorker)
 });
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -171,7 +175,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32925" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44383" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

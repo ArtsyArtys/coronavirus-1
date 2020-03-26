@@ -6,7 +6,7 @@ import store from '../client/store'
 import {Router} from 'react-router-dom'
 import history from '../client/history'
 import App from '../client/App'
-import * as serviceWorker from './service-worker'
+// import * as serviceWorker from './service-worker'
 
 export default ReactDOM.render(
   <Provider store={store}>
@@ -17,4 +17,4 @@ export default ReactDOM.render(
   document.getElementById('app')
 )
 
-serviceWorker.register()
+// serviceWorker.register()

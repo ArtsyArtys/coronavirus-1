@@ -23,6 +23,7 @@ const createApp = () => {
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'dist')))
 
+  // routes middleware
   app.use('/api', require('./api'))
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
@@ -39,6 +40,7 @@ const createApp = () => {
   // sends index.html
   app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'dist/index.html'))
+    // res.sendFile(path.join(__dirname, '..', 'dist/manifest.json'))
   })
 
   // error handling endware
@@ -75,9 +77,7 @@ const startListening = () => {
     })
     const server = app.listen(PORT, () =>
     console.log(`Mixing it up on port ${PORT} with worker ${process.pid}`)
-  )
-
-  }
+  )}
 }
 
 async function bootApp() {

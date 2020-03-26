@@ -46845,7 +46845,7 @@ var _App = _interopRequireDefault(require("../client/App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import * as serviceWorker from '../public/service-worker'
+// import * as serviceWorker from './service-worker'
 var _default = _reactDom.default.render(_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
 }, _react.default.createElement(_reactRouterDom.Router, {
@@ -46866,9 +46866,29 @@ var _client = _interopRequireDefault(require("../client"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+if ('serviceWorker' in navigator) {
+  console.log('service worker in navigator', navigator.serviceWorker);
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register("/service-worker.js", {
+      scope: './'
+    }).then(function (registration) {
+      // Registration was successful
+      console.log(registration.scope);
+      console.log('Registered!');
+    }, function (err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    }).catch(function (err) {
+      console.log(err);
+    });
+  });
+} else {
+  console.log('service worker is not supported');
+}
+
 var _default = _client.default;
 exports.default = _default;
-},{"../client":"../client/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../client":"../client/index.js","./service-worker.js":[["service-worker.js","service-worker.js"],"service-worker.js.map","service-worker.js"]}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -46896,7 +46916,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32925" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44383" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
