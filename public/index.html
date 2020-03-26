@@ -14,7 +14,7 @@
     <link rel="manifest" href="manifest.json" />
     <title>Create Web App</title>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script>
+    <script defer>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('service-worker.js').then(function(registration) {
