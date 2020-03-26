@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
 const compression = require('compression')
+const cluster = require('cluster')
 const PORT = process.env.PORT || 1234
 const app = express()
 module.exports = app
@@ -50,9 +51,33 @@ const createApp = () => {
 
 const startListening = () => {
   // start listening (and create a 'server' object representing our server)
-  const server = app.listen(PORT, () =>
-    console.log(`Mixing it up on port ${PORT}`)
+  if (cluster.isMaster) {
+    let numWorkers = require('os').cpus().length
+
+    console.log("Master cluster is setting up " + numWorkers + " workers")
+    for (let i = 0; i < numWorkers; i++) {
+      cluster.fork()
+    }
+
+    cluster.on('online', worker => {
+      console.log("Worker " + worker.process.pid + " is online!");
+    })
+
+    cluster.on('exit', (worker, code, signal) => {
+      console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal)
+      console.log('Starting a new worker')
+      cluster.fork()
+    })
+  }
+  else {
+    app.all('/*', (req, res) => {
+      res.send(`process ${process.pid} says hello`).end()
+    })
+    const server = app.listen(PORT, () =>
+    console.log(`Mixing it up on port ${PORT} with worker ${process.pid}`)
   )
+
+  }
 }
 
 async function bootApp() {
