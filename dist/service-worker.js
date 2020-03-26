@@ -136,10 +136,16 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 //   console.log('service worker is not supported');
 // }
 self.addEventListener('install', function (event) {
-  console.log('Install!', event);
-  event.waitUntil(caches.open('static-files').then(function (cache) {
-    return cache.addAll(['./apple-touch-icon.png', './favicon.ico', './splash-icon.png', './style.css']);
-  }));
+  console.log('Install!', event); // event.waitUntil(
+  //   caches.open('static-files').then(function(cache) {
+  //     return cache.addAll([
+  //       './apple-touch-icon.png',
+  //       './favicon.ico',
+  //       './splash-icon.png',
+  //       './style.css'
+  //     ])
+  //   })
+  // )
 });
 self.addEventListener("activate", function (event) {
   console.log('Activate!');
@@ -175,7 +181,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44383" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33197" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

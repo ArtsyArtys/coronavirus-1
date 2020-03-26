@@ -40,7 +40,6 @@ const createApp = () => {
   // sends index.html
   app.use('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'dist/index.html'))
-    // res.sendFile(path.join(__dirname, '..', 'dist/manifest.json'))
   })
 
   // error handling endware
@@ -86,3 +85,4 @@ async function bootApp() {
 }
 
 bootApp()
+// listen()

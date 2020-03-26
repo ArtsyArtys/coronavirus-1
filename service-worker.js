@@ -17,16 +17,16 @@
 // }
 self.addEventListener('install', function(event) {
   console.log('Install!', event)
-  // event.waitUntil(
-  //   caches.open('static-files').then(function(cache) {
-  //     return cache.addAll([
-  //       './apple-touch-icon.png',
-  //       './favicon.ico',
-  //       './splash-icon.png',
-  //       './style.css'
-  //     ])
-  //   })
-  // )
+  event.waitUntil(
+    caches.open('static-files').then(function(cache) {
+      return cache.addAll([
+        './apple-touch-icon.png',
+        './favicon.ico',
+        './splash-icon.png',
+        './style.css'
+      ])
+    })
+  )
 })
 self.addEventListener("activate", event => {
   console.log('Activate!')
