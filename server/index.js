@@ -5,6 +5,7 @@ const compression = require('compression')
 const cluster = require('cluster')
 const PORT = process.env.PORT || 1234
 const app = express()
+const sslRedirect = require('heroku-ssl-redirect')
 module.exports = app
 
 
@@ -12,6 +13,8 @@ module.exports = app
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
+
+  app.use(sslRedirect())
 
   // body parsing middleware
   app.use(express.json())

@@ -1,3 +1,4 @@
+
 // if ('serviceWorker' in navigator) {
 //   console.log('service worker in navigator', navigator.serviceWorker);
 //   window.addEventListener('load', function() {
@@ -19,14 +20,11 @@ self.addEventListener('install', function(event) {
   console.log('Install!', event)
   event.waitUntil(
     caches.open('static-files').then(function(cache) {
-      return cache.addAll([
-        './apple-touch-icon.png',
-        './favicon.ico',
-        './splash-icon.png',
-        './style.css'
-      ])
+      return cache.add(
+        '/')
     })
   )
+  console.log(caches.open('static-files'))
 })
 self.addEventListener("activate", event => {
   console.log('Activate!')
