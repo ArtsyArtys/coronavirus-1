@@ -46886,9 +46886,22 @@ if ('serviceWorker' in navigator) {
   console.log('service worker is not supported');
 }
 
+self.addEventListener('install', function (event) {
+  console.log('Install!', event);
+  event.waitUntil(caches.open('static-files').then(function (cache) {
+    return cache.add('/');
+  }));
+  console.log(caches.open('static-files'));
+});
+self.addEventListener("activate", function (event) {
+  console.log('Activate!', event);
+});
+self.addEventListener('fetch', function (event) {
+  console.log('Fetch!', event.request); // console.log(navigator.serviceWorker)
+});
 var _default = _client.default;
 exports.default = _default;
-},{"../client":"../client/index.js","./service-worker.js":[["service-worker.js","service-worker.js"],"service-worker.js.map","service-worker.js"]}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../client":"../client/index.js","./service-worker.js":[["service-worker.js","service-worker.js"],"service-worker.js"]}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
