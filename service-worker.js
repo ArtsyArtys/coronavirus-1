@@ -20,14 +20,13 @@ self.addEventListener('install', function(event) {
   console.log('Install!', event)
   event.waitUntil(
     caches.open('static-files').then(function(cache) {
-      return cache.add(
-        '/')
+      return cache.add('/')
     })
   )
   console.log(caches.open('static-files'))
 })
 self.addEventListener("activate", event => {
-  console.log('Activate!')
+  console.log('Activate!', event)
 })
 self.addEventListener('fetch', function(event) {
   console.log('Fetch!', event.request)

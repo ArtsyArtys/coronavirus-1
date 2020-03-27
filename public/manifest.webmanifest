@@ -18,7 +18,8 @@
     "type": "image/png"
   }
   ],
-  "start_url": ".",
+  "scope": "/",
+  "start_url": "https://coronavirus-tracker-news.heroku.com/",
   "background_color": "#fff",
   "theme_color": "#000000",
   "display": "standalone"
